@@ -2,7 +2,9 @@ const express = require('express');
 var cors = require('cors');
 var emplyeeList = require('./employee.json');
 var customer = require('./customer.json');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+const WebSocket = require('ws');
+const server = new WebSocket.Server({ port: 8080 });
 const app = express();
 const port = 8000;
 
@@ -26,3 +28,15 @@ res.send(emplyeeList)});
 app.get('/customers', (req, res) => res.send(customer));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
+
+/*websocket server */
+server.on('connection', socket => {
+    console.log('websocket starts');
+    socket.on('message', message => {
+      console.log(`received from a client: ${message}`);
+    });
+  
+  setInterval(function(){ socket.send(`Rakshith websocket Timer!  :  ${new Date()} `); }, 3000);
+    
+  });
