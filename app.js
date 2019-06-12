@@ -27,6 +27,12 @@ res.send(emplyeeList)});
 /*customer List*/
 app.get('/customers', (req, res) => res.send(customer));
 
+/* Add customers */
+/*add new employee to a List */
+app.post('/customers', (req, res) => {
+  customer.push(req.body);
+  res.send('success')});
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 
